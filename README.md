@@ -78,7 +78,7 @@ import zipfile
 4. Save the portions of the cipher in multiple locations, and record the locations in a file*
 5. Congratulations! You can now use `encrypt()` to encrypt data and `decrypt()` to decrypt it later!
 
-`*`*Steps 3 and 4 require manual file management. These features will be modified to be more automated and user-friendly.*
+\**Steps 3 and 4 require manual file management. These features will be modified to be more automated and user-friendly.*
 
 
 <!-- USAGE EXAMPLES -->
