@@ -1,10 +1,3 @@
-<!--
-*** Do a search and replace for the following:
-*** EvanGottschalk, CustomEncryptor, Fort1Evan, magnus5557@gmail.com, CustomEncryptor, A simple, customizable program for encrypting and decrypting data
--->
-
-
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -18,7 +11,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![LinkedIn][linkedin-shield]][https://www.linkedin.com/in/evan-gottschalk/]
 
 
 
@@ -48,7 +41,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+`CustomEncryptor` is a cryptography program used to encrypt data by converting it to seemingly random numbers. This is done via a custom cipher: users get to choose the way each character is mapped, thus guaranteeing a unique means of encryption and decryption. Alternatively, `CustomEncryptor` can also be used to generate a cipher on its own using random numbers, which saves users the effort of assigning characters one at a time.
+
+The cipher can be broken up into multiple files, which increases its efficacy. By using `FetchEncryptedFiles.py`, users can save parts of their cipher in an encrypted zip folder and access them when needed. This is particularly useful when paired with removable storage. By saving a portion of one's cipher in an encrypted zip folder on a flash drive or other removable device, one can essentially use that removable device as a hardware key.
+
+
 
 ### Prerequisites
 
@@ -70,6 +67,8 @@ The `zipfile` library is used in `FetchEncryptedFiles.py` to access encrypted zi
 import zipfile
 ```
 
+
+
 ### Installation
 
 1. Download the program files
@@ -81,12 +80,12 @@ import zipfile
 \**Steps 3 and 4 require manual file management. These features will be modified to be more automated and user-friendly.*
 
 
-<!-- USAGE EXAMPLES -->
+<!-- USAGE EXAMPLES - to be filled out after further testing-->
+<!--
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+-->
 
 
 
@@ -96,17 +95,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 See the [open issues](https://github.com/EvanGottschalk/CustomEncryptor/issues) for a list of proposed features (and known issues).
 
 
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+All feedback is extremely welcome! Getting this program to be as secure and simple as possible is my goal. Please let me know if you see any improvements I can make, or any holes or backdoors that need to be sealed.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Honestly, I was hesitant about publicizing a program I intend to use for my own security purposes. However, I trust that any feedback I get will strengthen `CustomEncryptor` by a much greater amount than sharing the code compromises it.
 
 
 
@@ -120,19 +114,20 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@Fort1Evan](https://twitter.com/Fort1Evan) - magnus5557@gmail.com
+Evan Gottschalk - [Evan on LinkedIn](https://www.linkedin.com/in/evan-gottschalk/) - [@Fort1Evan](https://twitter.com/Fort1Evan) - magnus5557@gmail.com
 
 Project Link: [https://github.com/EvanGottschalk/CustomEncryptor](https://github.com/EvanGottschalk/CustomEncryptor)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
+<!-- To be filled out later - I may use some code that a friend of mine provided
 ## Acknowledgements
 
 * []()
 * []()
 * []()
-
+-->
 
 
 
