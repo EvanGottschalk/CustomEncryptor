@@ -45,73 +45,40 @@
   </p>
 </p>
 
-
-
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-### Built With
-
-* []()
-* []()
-* []()
-
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-To get a local copy up and running follow these simple steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+The `random` library is used in `CustomEncryptor.py` to encrypt data, and to create new ciphers. It is a default library of Python, so it should only need to be imported.
+
+```sh
+import random
+```
+
+The `pickle` library is used in `CustomEncryptor.py` and `FetchEncryptedFiles.py` to access and create files. It is a default library of Python, so it should only need to be imported.
+
+```sh
+import pickle
+```
+
+The `zipfile` library is used in `FetchEncryptedFiles.py` to access encrypted zip folders. If you are not using an encrypted zip folder, particularly one on removable storage, then this library is not necessary. It is a default library of Python, so it should only need to be imported.
+
+```sh
+import zipfile
+```
 
 ### Installation
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/EvanGottschalk/CustomEncryptor.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
+1. Download the program files
+2. Use the program to create a cipher using `generateCipher()`
+3. Divide the cipher into multiple files*
+4. Save the portions of the cipher in multiple locations, and record the locations in a file*
+5. Congratulations! You can now use `encrypt()` to encrypt data and `decrypt()` to decrypt it later!
 
+`*`*Steps 3 and 4 require manual file management. These features will be modified to be more automated and user-friendly.*
 
 
 <!-- USAGE EXAMPLES -->
