@@ -1,6 +1,6 @@
 <!--
 *** Do a search and replace for the following:
-*** EvanGottschalk, repo_name, Fort1Evan, magnus5557@gmail.com, project_title, project_description
+*** EvanGottschalk, CustomEncryptor, Fort1Evan, magnus5557@gmail.com, CustomEncryptor, project_description
 -->
 
 
@@ -25,23 +25,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/EvanGottschalk/repo_name">
+  <a href="https://github.com/EvanGottschalk/CustomEncryptor">
     <img src="images/logo.png" alt="Logo" width="151" height="80">
   </a>
 
-  <h3 align="center">project_title</h3>
+  <h3 align="center">CustomEncryptor</h3>
 
   <p align="center">
     project_description
     <br />
-    <a href="https://github.com/EvanGottschalk/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/EvanGottschalk/CustomEncryptor"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/EvanGottschalk/repo_name">View Demo</a>
+    <a href="https://github.com/EvanGottschalk/CustomEncryptor">View Demo</a>
     ·
-    <a href="https://github.com/EvanGottschalk/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/EvanGottschalk/CustomEncryptor/issues">Report Bug</a>
     ·
-    <a href="https://github.com/EvanGottschalk/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/EvanGottschalk/CustomEncryptor/issues">Request Feature</a>
   </p>
 </p>
 
@@ -82,7 +82,7 @@
 
 Here's a blank template to get started:
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`EvanGottschalk`, `repo_name`, `Fort1Evan`, `magnus5557@gmail.com`, `project_title`, `project_description`
+`EvanGottschalk`, `CustomEncryptor`, `Fort1Evan`, `magnus5557@gmail.com`, `CustomEncryptor`, `project_description`
 
 
 ### Built With
@@ -110,7 +110,7 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/EvanGottschalk/repo_name.git
+   git clone https://github.com/EvanGottschalk/CustomEncryptor.git
    ```
 2. Install NPM packages
    ```sh
@@ -131,7 +131,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/EvanGottschalk/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/EvanGottschalk/CustomEncryptor/issues) for a list of proposed features (and known issues).
 
 
 
@@ -160,7 +160,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [@Fort1Evan](https://twitter.com/Fort1Evan) - magnus5557@gmail.com
 
-Project Link: [https://github.com/EvanGottschalk/repo_name](https://github.com/EvanGottschalk/repo_name)
+Project Link: [https://github.com/EvanGottschalk/CustomEncryptor](https://github.com/EvanGottschalk/CustomEncryptor)
 
 
 
