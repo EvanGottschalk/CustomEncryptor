@@ -6,7 +6,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[[Contributors][contributors-shield]](../graphs/contributors)
+[![Contributors][contributors-shield]](https://github.com/EvanGottschalk/graphs/contributors)
 [![Forks][forks-shield]](https://github.com/EvanGottschalk/CustomEncryptor/network/members)
 [![Stargazers][stars-shield]](https://github.com/EvanGottschalk/CustomEncryptor/stargazers)
 [![Issues][issues-shield]](https://github.com/EvanGottschalk/CustomEncryptor/issues)
@@ -133,14 +133,14 @@ Project Link: [https://github.com/EvanGottschalk/CustomEncryptor](https://github
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/EvanGottschalk/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/EvanGottschalk/repo/graphs/contributors
+[contributors-url]: https://github.com/EvanGottschalk/CustomEncryptor/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/EvanGottschalk/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/EvanGottschalk/repo/network/members
+[forks-url]: https://github.com/EvanGottschalk/CustomEncryptor/network/members
 [stars-shield]: https://img.shields.io/github/stars/EvanGottschalk/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/EvanGottschalk/repo/stargazers
+[stars-url]: https://github.com/EvanGottschalk/CustomEncryptor/stargazers
 [issues-shield]: https://img.shields.io/github/issues/EvanGottschalk/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/EvanGottschalk/repo/issues
+[issues-url]: https://github.com/EvanGottschalk/CustomEncryptor/issues
 [license-shield]: https://img.shields.io/github/license/EvanGottschalk/repo.svg?style=for-the-badge
-[license-url]: https://github.com/EvanGottschalk/repo/blob/master/LICENSE.txt
+[license-url]: https://github.com/EvanGottschalk/CustomEncryptor/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/EvanGottschalk
