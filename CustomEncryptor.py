@@ -28,7 +28,7 @@ class CustomEncryptor:
     # byte_length determines how many characters each character is encrypted to. 4 is the default
         self.byte_length = 4
     # Create a .txt file with the locations of your cipher files on each line. cipher_file will be assigned to that file
-        cipher_file = open('Vault - Home.txt', 'r')
+        cipher_file = open('CipherLocations - Example.txt', 'r')
         cipher_locations = []
         for line in cipher_file:
             cipher_locations.append(line.split('\n')[0])
