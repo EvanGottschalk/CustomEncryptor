@@ -6,11 +6,11 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![Contributors][contributors-shield]](https://github.com/EvanGottschalk/CustomEncryptor/graphs/contributors)
+[![Forks][forks-shield]](https://github.com/EvanGottschalk/CustomEncryptor/network/members)
+[![Stargazers][stars-shield]](https://github.com/EvanGottschalk/CustomEncryptor/stargazers)
+[![Issues][issues-shield]](https://github.com/EvanGottschalk/CustomEncryptor/issues)
+[![MIT License][license-shield]](https://github.com/EvanGottschalk/CustomEncryptor/blob/main/LICENSE)
 [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/evan-gottschalk/)
 
 
@@ -30,8 +30,6 @@
     <a href="https://github.com/EvanGottschalk/CustomEncryptor"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/EvanGottschalk/CustomEncryptor">View Demo</a>
-    ·
     <a href="https://github.com/EvanGottschalk/CustomEncryptor/issues">Report Bug</a>
     ·
     <a href="https://github.com/EvanGottschalk/CustomEncryptor/issues">Request Feature</a>
