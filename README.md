@@ -1,6 +1,6 @@
 <!--
 *** Do a search and replace for the following:
-*** EvanGottschalk, CustomEncryptor, Fort1Evan, magnus5557@gmail.com, CustomEncryptor, project_description
+*** EvanGottschalk, CustomEncryptor, Fort1Evan, magnus5557@gmail.com, CustomEncryptor, A simple, customizable program for encrypting and decrypting data
 -->
 
 
@@ -32,7 +32,7 @@
   <h3 align="center">CustomEncryptor</h3>
 
   <p align="center">
-    project_description
+    A simple, customizable program for encrypting and decrypting data
     <br />
     <a href="https://github.com/EvanGottschalk/CustomEncryptor"><strong>Explore the docs »</strong></a>
     <br />
