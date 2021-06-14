@@ -8,7 +8,7 @@
 #       CustomEncryptor - the class name
 #       CipherLocations - the name of the .txt containing your cipher file locations
 #       cipher_file - the variable assigned to the .txt containing your cipher file locations
-#       cipher_locations - the list of your cipher locations
+#       CP_locations_list - the list of your cipher locations
 #       cipher - the cipher
 #       fetchData - function that attempts to open a file given a location
 #       encrypt - function that encrypts data or a file
@@ -28,14 +28,49 @@ class CustomEncryptor:
         self.sort = True
     # byte_length determines how many characters each character is encrypted to. 4 is the default
         self.byte_length = 4
-    # Create a .txt file with the locations of your cipher files on each line. cipher_file will be assigned to that file
-        cipher_file = open('Vault - Home.txt', 'r')
-        cipher_locations = []
-        for line in cipher_file:
-            cipher_locations.append(line.split('\n')[0])
+
+# This function reassembles the cipher used for encrypting and decrypting from the various Cipher Portion (CP) files
+    def assembleCipher(self):
+        print('OK! CustomEncryptor will now assemble your cipher.\n')
+    # This while loop allows the user to choose between manually entering the CP file names, or accessing them from a file
+        CP_location_mode = False
+        while not(CP_location_mode):
+            CP_location_mode = str(input('Would you like to input your Cipher Portion file names manually, or open them from a file?\n(1) : Manual\n(2) : From File\n\nMode : '))
+            if CP_location_mode.lower() == 'manual' or gear == '1':
+                CP_location_mode = 'manual'
+            elif CP_location_mode.lower() == 'file' or gear == '2':
+                CP_location_mode = 'file'
+            else:
+                CP_location_mode = False
+                print('That input was invalid! Please enter "1", "2", "manual" or "file".')
+        CP_locations_list = []
+    # Manual - this while loop allows the user to manually enter the CP file names
+        if CP_location_mode == 'manual':
+            collect_CP_file_names = True
+            while collect_CP_file_names:
+                CP_file_location = str(input('Please enter the name of one of your Cipher Portion files. After entering them all, enter "done" or "0"\n    Cipher Portion File Name: '))
+                if CP_file_location == '0' or CP_file_location.lower() == 'done':
+                    print('OK! Your Cipher Portion file names have been collected. CustomEncryptor will now assemble your cipher from them.')
+                    collect_CP_file_names = False
+                else:
+                    CP_locations_list.append(CP_file_location)
+    # From File - this acquires the CP file names from a file
+      # To use this mode, create a .txt file with the locations of your cipher files on each line. This can be done manually or with generateCipher()
+      # CP_location_file will be assigned to that file
+        elif CP_location_mode == 'file':
+            CP_location_file = False
+            while not(CP_location_file):
+                try:
+                    CP_location_file = str(input('What is the name of the file containing your Cipher Portion file names?\n    File Name: '))
+                    CP_location_file = open(CP_location_file, 'r')
+                except:
+                    print('ERROR! Unabled to find file. Please try again.')
+                    CP_location_file = False
+            for line in CP_location_file:
+                CP_locations_list.append(line.split('\n')[0])
     # The following for loop assembles the cipher from the various cipher files
         self.cipher = {}
-        for location in cipher_locations:
+        for location in CP_locations_list:
             try:
                 file_data_dict = pickle.load(open(location, 'rb'))
             except:  
@@ -143,10 +178,11 @@ class CustomEncryptor:
                         'A': '', 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', \
                         'N': '', 'O': '', 'P': '', 'Q': '', 'R': '', 'S': '', 'T': '', 'U': '', 'V': '', 'W': '', 'X': '', 'Y': '', 'Z': '', \
                         '-': '', '.': '', ',': '', ' ': '', '!': '', '?': '', '/': '', '@': '', '^': '', '*': '', '(': '', ')': ''}
-        gear = False
-    # Choose automatic or manual generation of cipher in this while loop
-        print('Welcome to the Cipher Generator! Please answer the following questions.')
+        
+   
+        print('Welcome to the Cipher Generator! Please answer the following questions.\n')
         self.byte_length = False
+    # This while loop allows users to choose the number of digits each encrypted character is after encryption
         while not(self.byte_length):
             self.byte_length = str(input('How many digits would you like your cipher to translate each character to?\n    Byte Length: '))
             try:
@@ -157,7 +193,9 @@ class CustomEncryptor:
             except:
                 print('Invalid input! Please enter an integer for the Byte Length.')
                 self.byte_length = False
-        print('OK! Byte Length of ' + str(self.byte_length) + ' has been chosen!')
+        print('OK! Byte Length of ' + str(self.byte_length) + ' has been chosen!\n')
+    # Choose Gear - automatic or manual generation of cipher in this while loop
+        gear = False
         while not(gear):
             gear = str(input('Would you like to manually generate a cipher, or have them made automatically?\n(1) : Manual\n(2) : Automatic\n\nGear : '))
             if gear.lower() == 'manual' or gear == '1':
@@ -166,13 +204,13 @@ class CustomEncryptor:
                 gear = 'automatic'
             else:
                 gear = False
-                print('That input was invalid! Please try again.')
+                print('That input was invalid! Please enter "1", "2", or the name of a gear.')
         new_cipher = {}
         new_cipher_inverse = {}
         character_count = 0
-    # This for loop takes the user through every encryptable character, allowing them to assign each character to a combination of numbers of their choice
+    # Manual - This for loop takes the user through every encryptable character, allowing them to assign each character to a combination of numbers of their choice
         if gear == 'manual':
-            print('OK! Please input a ' + str(self.byte_length) + '-digit value to assign to each of the following ' + str(len(blank_cipher))+ ' characters:')
+            print('OK! You have chosen to manually create your cipher.\n\nPlease input a ' + str(self.byte_length) + '-digit value to assign to each of the following ' + str(len(blank_cipher))+ ' characters:')
             for char in blank_cipher:
                 character_count += 1
                 print('Character #' + str(character_count))
@@ -187,15 +225,15 @@ class CustomEncryptor:
                         new_value = False
                 new_cipher[char] = new_value
                 new_cipher_inverse[new_value] = char
-    # This for loop runs through all of the encryptable characters and assigns each one to a random number of the appropriate length
+    # Automatic - This for loop runs through all of the encryptable characters and assigns each one to a random number of the appropriate length
         elif gear == 'automatic':
-            print('OK! The cipher will be generated automatically for you.')
+            print('OK! You have chosen to automatically create your cipher.\n\n The cipher will now be generated automatically at random.')
             for char in blank_cipher:
                 character_count += 1
                 print('Character #' + str(character_count))
                 new_value = False
                 while not(new_value):
-                    new_value = str(int(random.random() * (10 ** self.byte_length))
+                    new_value = str(int(random.random() * (10 ** self.byte_length)))
                 # This if corrects the rare case where random.random() returns 1
                     if len(new_value) > self.byte_length:
                         new_value = '0' * self.byte_length
@@ -208,6 +246,60 @@ class CustomEncryptor:
                 new_cipher[char] = new_value
                 new_cipher_inverse[new_value] = char
                 print(char + ' -> ' + new_value)
-        return(new_cipher)
+        print('\nOK! Your cipher has been created. There are just a few more questions for you to answer.\n')
+    # This while loop allows the user to choose into how many files their cipher will be broken up
+        number_of_files = False
+        while not(number_of_files):
+            number_of_files = input('Into how many files would you like it to be divided?\n    Number of Files: ')
+            try:
+                number_of_files = int(number_of_files)
+                if number_of_files < 1:
+                    print('Invalid input! The number of files must be a positive integer.')
+                    number_of_files = False
+            except:
+                print('Invalid input! The number of files must be a positive integer.')
+                number_of_files = False
+        if number_of_files == 1:
+            print('OK! Your cipher will be stored entirely in 1 file. It will not be divided.\n')
+        else:
+            print('OK! Your cipher will be broken up into ' + str(number_of_files) + ' files.\n')
+        # This while loop allows the user to choose between manually breaking up their cipher, or having it done automatically for them
+            gear = False
+            while not(gear):
+                gear = str(input('Would you like to manually divide your cipher, or have it divided automatically?\n(1) : Manual\n(2) : Automatic\n\nGear : '))
+                if gear.lower() == 'manual' or gear == '1':
+                    gear = 'manual'
+                elif gear.lower() == 'automatic' or gear.lower() == 'auto' or gear == '2':
+                    gear = 'automatic'
+                else:
+                    gear = False
+                    print('That input was invalid! Please enter "1", "2", or the name of a gear.')
+        # Auto - This for loop automatically divides up the new cipher into separate Cipher Portion (CP) files
+          # I decided that CP's should contain 5% to 50% of the total cipher. Feel free to change this
+            minimum_CP_size_percent = .05
+            maximum_CP_size_percent = .50
+            minimum_CP_size = int((10 ** len(str(len(new_cipher)))) * minimum_CP_size_percent) + 1
+            maximum_CP_size = int(len(new_cipher) * maximum_CP_size_percent) + 1
+            character_list = list(new_cipher)
+            assigned_already = []
+            not_assigned = character_list
+            for file_count in range(number_of_files):
+                new_CP = {}
+                if file_count == number_of_files:
+                    new_CP_size = len(not_assigned)
+                else:
+                    new_CP_size = random.randint(minimum_CP_size, min(maximum_CP_size, (len(not_assigned)) - ((number_of_files - file_count) * minimum_CP_size)))
+                    if len(not_assigned) - new_CP_size > maximum_CP_size:
+                        new_CP_size += ((len(not_assigned) - new_CP_size) - maximum_CP_size)
+                for char_count in range(new_CP_size):
+                    if len(not_assigned) == 1:
+                        new_char = new_cipher[not_assigned[0]]
+                    else:
+                        new_char = random.choice(not_assigned)
+                    new_CP[new_char] = new_cipher[new_char]
+                    assigned_already.append(new_char)
+                    not_assigned.remove(new_char)
+                pickle.dump(new_CP, open('CP_' + str(file_count) + '.pickle', 'wb'))
+                print('CP_' + str(file_count) + '.pickle with length ' + str(len(new_CP)) + ' has been generated!')
                 
         
