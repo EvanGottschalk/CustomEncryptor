@@ -28,6 +28,9 @@ class CustomEncryptor:
         self.sort = True
     # byte_length determines how many characters each character is encrypted to. 4 is the default
         self.byte_length = 4
+    # encryption_length determines the maximum number of characters that can be encrypted
+    # encryption_length determines the length that every encrypted piece of data will be
+        self.encryption_length = 100
 
 # This function reassembles the cipher used for encrypting and decrypting from the various Cipher Portion (CP) files
     def assembleCipher(self):
@@ -130,7 +133,7 @@ class CustomEncryptor:
             for char in data:
                 output += self.cipher[char]
         # Random extra characters are added to the end of the encryption so that all encryptions are the same length
-            while len(output) < 100 * self.byte_length:
+            while len(output) < self.encryption_length * self.byte_length:
                 output += random.choice(list(self.cipher_inverse))
         else:
             output = []
@@ -139,7 +142,7 @@ class CustomEncryptor:
                 for char in line:
                     line_output += self.cipher[char]
             # Random extra characters are added to the end of the encryption so that all encryptions are the same length
-                while len(line_output) < 100 * self.byte_length:
+                while len(line_output) < self.encryption_length * self.byte_length:
                     line_output += random.choice(list(self.cipher_inverse))
                 output.append(line_output)
         return(output)
