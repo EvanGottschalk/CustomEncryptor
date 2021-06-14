@@ -35,10 +35,10 @@ class CustomEncryptor:
     # This while loop allows the user to choose between manually entering the CP file names, or accessing them from a file
         CP_location_mode = False
         while not(CP_location_mode):
-            CP_location_mode = str(input('Would you like to input your Cipher Portion file names manually, or open them from a file?\n(1) : Manual\n(2) : From File\n\nMode : '))
-            if CP_location_mode.lower() == 'manual' or gear == '1':
+            CP_location_mode = str(input('Would you like to input your Cipher Portion file names manually, or pull them from a file?\n(1) : Manual\n(2) : From File\n\nMode : '))
+            if CP_location_mode.lower() == 'manual' or CP_location_mode == '1':
                 CP_location_mode = 'manual'
-            elif CP_location_mode.lower() == 'file' or gear == '2':
+            elif CP_location_mode.lower() == 'file' or CP_location_mode == '2':
                 CP_location_mode = 'file'
             else:
                 CP_location_mode = False
@@ -48,7 +48,7 @@ class CustomEncryptor:
         if CP_location_mode == 'manual':
             collect_CP_file_names = True
             while collect_CP_file_names:
-                CP_file_location = str(input('Please enter the name of one of your Cipher Portion files. After entering them all, enter "done" or "0"\n    Cipher Portion File Name: '))
+                CP_file_location = str(input('\nPlease enter the name of one of your Cipher Portion files. After entering them all, enter "done" or "0"\n    Cipher Portion File Name: '))
                 if CP_file_location == '0' or CP_file_location.lower() == 'done':
                     print('OK! Your Cipher Portion file names have been collected. CustomEncryptor will now assemble your cipher from them.')
                     collect_CP_file_names = False
@@ -61,7 +61,7 @@ class CustomEncryptor:
             CP_location_file = False
             while not(CP_location_file):
                 try:
-                    CP_location_file = str(input('What is the name of the file containing your Cipher Portion file names?\n    File Name: '))
+                    CP_location_file = str(input('\nWhat is the name of the file containing your Cipher Portion file names?\n    File Name: '))
                     CP_location_file = open(CP_location_file, 'r')
                 except:
                     print('ERROR! Unabled to find file. Please try again.')
@@ -106,6 +106,7 @@ class CustomEncryptor:
             del SD
     # Creates an inverted self.cipher dict with the keys and values switched; this is used in the decrypt() function
         self.cipher_inverse = {value: key for key, value in self.cipher.items()}
+        print('OK! Your cipher has been assembled.')
              
 # This function is for quickly opening files in the case that encrypt() or decrypt() is sent a file location rather than data for encryption
     def fetchData(self, location):
