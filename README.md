@@ -129,9 +129,11 @@ That's it! You may now use the `decrypt()` function in your other code to access
 
 `encrypt(file_info)` - uses the most recently assembled cipher to encrypt the file `file_info` refers to. If it can't find a file located at `file_info`, it encrypts the input `str` itself.
 
-  Maximum length - by default, `encrypt` can only encrypt data of 100 characters or less. Change this by altering the value of `encryption_length` in the `__init__`. Keep in mind that, the larger the number you use, the bigger the encrypted outputs will be.
+More about `encrypt`:
+
+Maximum length - by default, `encrypt` can only encrypt data of 100 characters or less. Change this by altering the value of `encryption_length` in the `__init__`. Keep in mind that, the larger the number you use, the bigger the encrypted outputs will be.
     
-  Consistent length - the output from `encrypt` will always be the same length. The length is `encryption_length * byte_length`. When encrypting data with fewer than `encryption_length` characters, random characters are added to the end until its length is equal to `encryption_length * byte_length`. Adding extra characters at random is not a problem, because the individual with the right to access the decrypted data will know how long the decrypted version is supposed to be, and can ignore characters beyond that length.
+Consistent length - the output from `encrypt` will always be the same length. The length is `encryption_length * byte_length`. When encrypting data with fewer than `encryption_length` characters, random characters are added to the end until its length is equal to `encryption_length * byte_length`. Adding extra characters at random is not a problem, because the individual with the right to access the decrypted data will know how long the decrypted version is supposed to be, and can ignore characters beyond that length.
 
 `decrypt(file_info)` - uses the most recently assembled cipher to decrypt the file `file_info` refers to. If it can't find a file located at `file_info`, it attempts to decrypt the input `str` itself.
 
