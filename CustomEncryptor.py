@@ -72,7 +72,9 @@ class CustomEncryptor:
         self.cipher = {}
         for location in CP_locations_list:
             try:
-                file_data_dict = pickle.load(open(location, 'rb'))
+                CP_file = open(location, 'rb')
+                file_data_dict = pickle.load(CP_file)
+                CP_file.close()
             except:  
                 try:
                     raw_file_data_dict = open(location, 'r')
@@ -275,32 +277,89 @@ class CustomEncryptor:
                 else:
                     gear = False
                     print('That input was invalid! Please enter "1", "2", or the name of a gear.')
-        # Auto - This for loop automatically divides up the new cipher into separate Cipher Portion (CP) files
+            CP_file_name_list = []
+        # Manual - This for loop allows the user to choose file names for their Cipher Portions, and to choose which characters are stored where
+            if gear == 'manual':
+                print('\nOK! You have chosen to manually divide your cipher. Please enter file names for each of your ' + str(number_of_files) + ' Cipher Portions.\n')
+                CP_file_name_dict = {}
+                CP_file_contents_dict = {}
+                for file_count in range(1, number_of_files + 1):
+                    CP_file_name = input('    File #' + str(file_count) + ': ')
+                    CP_file_name_list.append(CP_file_name)
+                    CP_file_name_dict[file_count] = CP_file_name
+                    CP_file_contents_dict[file_count] = {}
+                print('\nOK! Now assign each pair of characters and their encrypted versions to a file.')
+                for char in new_cipher:
+                    print('\nFile Name Choices:')
+                    for file_number in CP_file_name_dict:
+                        print('    (' + str(file_number) + ') ' + CP_file_name_dict[file_number])
+                    file_choice = False
+                    while not(file_choice):
+                        file_choice = input('\n' + char + ' = ' + new_cipher[char] + ' -> Choice #')
+                        try:
+                            file_choice = int(file_choice)
+                            print('OK! That pair will be stored in ' + CP_file_name_dict[file_choice] + '\n')
+                            CP_file_contents_dict[file_choice][char] = new_cipher[char]
+                        except:
+                            print('Invalid input! Please enter an integer that has been assigned to one of your file names.')
+                            file_choice = False
+                print('\nOK! You have assigned every character to a file name. CustomEncryptor will now create those files.')
+                for file_number in range(1, number_of_files + 1):
+                    print('Creating ' + CP_file_name_dict[file_number] + '..........')
+                    pickle.dump(CP_file_contents_dict[file_number], open(CP_file_name_dict[file_number], 'wb'))
+                print('\nOK! Your Cipher Portion files have been created. If they are all in the same folder, be sure to separate them.')                   
+        # Automatic - This for loop automatically divides up the new cipher into separate Cipher Portion (CP) files
           # I decided that CP's should contain 5% to 50% of the total cipher. Feel free to change this
-            minimum_CP_size_percent = .05
-            maximum_CP_size_percent = .50
-            minimum_CP_size = int((10 ** len(str(len(new_cipher)))) * minimum_CP_size_percent) + 1
-            maximum_CP_size = int(len(new_cipher) * maximum_CP_size_percent) + 1
-            character_list = list(new_cipher)
-            assigned_already = []
-            not_assigned = character_list
-            for file_count in range(number_of_files):
-                new_CP = {}
-                if file_count == number_of_files:
-                    new_CP_size = len(not_assigned)
-                else:
-                    new_CP_size = random.randint(minimum_CP_size, min(maximum_CP_size, (len(not_assigned)) - ((number_of_files - file_count) * minimum_CP_size)))
-                    if len(not_assigned) - new_CP_size > maximum_CP_size:
-                        new_CP_size += ((len(not_assigned) - new_CP_size) - maximum_CP_size)
-                for char_count in range(new_CP_size):
-                    if len(not_assigned) == 1:
-                        new_char = new_cipher[not_assigned[0]]
+            elif gear == 'automatic':
+                print('\nOK! Your cipher will be divided into ' + str(number_of_files) + ' files automatically at random.')
+                minimum_CP_size_percent = .05
+                maximum_CP_size_percent = .50
+                minimum_CP_size = int((10 ** len(str(len(new_cipher)))) * minimum_CP_size_percent) + 1
+                maximum_CP_size = int(len(new_cipher) * maximum_CP_size_percent) + 1
+                character_list = list(new_cipher)
+                assigned_already = []
+                not_assigned = character_list
+                for file_count in range(number_of_files):
+                    new_CP = {}
+                    if file_count == number_of_files:
+                        new_CP_size = len(not_assigned)
                     else:
-                        new_char = random.choice(not_assigned)
-                    new_CP[new_char] = new_cipher[new_char]
-                    assigned_already.append(new_char)
-                    not_assigned.remove(new_char)
-                pickle.dump(new_CP, open('CP_' + str(file_count) + '.pickle', 'wb'))
-                print('CP_' + str(file_count) + '.pickle with length ' + str(len(new_CP)) + ' has been generated!')
+                        new_CP_size = random.randint(minimum_CP_size, min(maximum_CP_size, (len(not_assigned)) - ((number_of_files - file_count) * minimum_CP_size)))
+                        if len(not_assigned) - new_CP_size > maximum_CP_size:
+                            new_CP_size += ((len(not_assigned) - new_CP_size) - maximum_CP_size)
+                    for char_count in range(new_CP_size):
+                        if len(not_assigned) == 1:
+                            new_char = new_cipher[not_assigned[0]]
+                        else:
+                            new_char = random.choice(not_assigned)
+                        new_CP[new_char] = new_cipher[new_char]
+                        assigned_already.append(new_char)
+                        not_assigned.remove(new_char)
+                    new_CP_file_name = 'CP_' + str(file_count) + '.pickle'
+                    CP_file_name_list.append(new_CP_file_name)
+                    pickle.dump(new_CP, open(new_CP_file_name, 'wb'))
+                    print('New Cipher Portion file "' + new_CP_file_name + '" with length ' + str(len(new_CP)) + ' has been generated!')
+        # This while loop allows the user to choose between saving their CP file locations in their own file
+            location_file_creation_input = False
+            while not(location_file_creation_input):
+                location_file_creation_input = str(input("\nWould you save your Cipher Portion file locations in a file?\n(1) : Save Locations\n(2) : Don't Save\n\nChoice : "))
+                if location_file_creation_input.lower() == 'save' or location_file_creation_input == '1':
+                    location_file_creation_input = 'save'
+                elif location_file_creation_input.lower() == 'no' or location_file_creation_input.lower() == 'no save' or location_file_creation_input == '2':
+                    location_file_creation_input = 'no save'
+                else:
+                    location_file_creation_input = False
+                    print('That input was invalid! Please enter "1", "2", "save" or "no save".')
+            if location_file_creation_input == 'save':
+                print('\nOK! Your Cipher Portion locations will be saved in "NEW CipherLocations.txt"')
+                combined_file_names = ''
+                for file_name in CP_file_name_list:
+                    combined_file_names += file_name
+                    combined_file_names += '\n'
+                CP_location_file = open('NEW CipherLocations.txt', 'w')
+                CP_location_file.write(combined_file_names)
+                CP_location_file.close()
+            else:
+                print('\nOK! Your Cipher Portion locations will not be saved.')
                 
         
