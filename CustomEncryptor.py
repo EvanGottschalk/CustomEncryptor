@@ -14,6 +14,7 @@
 #       encrypt - function that encrypts data or a file
 #       decrypt - function that decrypts data or a file
 #       generateCipher - function for creating a brand new cipher
+#       byte_length - the number of digits characters are encrypted to
 
 import pickle
 import random
@@ -28,7 +29,7 @@ class CustomEncryptor:
     # byte_length determines how many characters each character is encrypted to. 4 is the default
         self.byte_length = 4
     # Create a .txt file with the locations of your cipher files on each line. cipher_file will be assigned to that file
-        cipher_file = open('CipherLocations - Example.txt', 'r')
+        cipher_file = open('Vault - Home.txt', 'r')
         cipher_locations = []
         for line in cipher_file:
             cipher_locations.append(line.split('\n')[0])
@@ -144,6 +145,19 @@ class CustomEncryptor:
                         '-': '', '.': '', ',': '', ' ': '', '!': '', '?': '', '/': '', '@': '', '^': '', '*': '', '(': '', ')': ''}
         gear = False
     # Choose automatic or manual generation of cipher in this while loop
+        print('Welcome to the Cipher Generator! Please answer the following questions.')
+        self.byte_length = False
+        while not(self.byte_length):
+            self.byte_length = str(input('How many digits would you like your cipher to translate each character to?\n    Byte Length: '))
+            try:
+                self.byte_length = int(self.byte_length)
+                if self.byte_length < len(str(len(blank_cipher))):
+                    print('Invalid input! Byte Length must be at least ' + str(len(str(len(blank_cipher)))) + ' to prevent overlapping.')
+                    self.byte_length = False
+            except:
+                print('Invalid input! Please enter an integer for the Byte Length.')
+                self.byte_length = False
+        print('OK! Byte Length of ' + str(self.byte_length) + ' has been chosen!')
         while not(gear):
             gear = str(input('Would you like to manually generate a cipher, or have them made automatically?\n(1) : Manual\n(2) : Automatic\n\nGear : '))
             if gear.lower() == 'manual' or gear == '1':
@@ -181,10 +195,10 @@ class CustomEncryptor:
                 print('Character #' + str(character_count))
                 new_value = False
                 while not(new_value):
-                    new_value = str(int(random.random() * 10000))
+                    new_value = str(int(random.random() * (10 ** self.byte_length))
                 # This if corrects the rare case where random.random() returns 1
                     if len(new_value) > self.byte_length:
-                        new_value = '0000'
+                        new_value = '0' * self.byte_length
                 # This while corrects the case where random.random() returns a value below .1
                     while len(new_value) < self.byte_length:
                         new_value = '0' + new_value
