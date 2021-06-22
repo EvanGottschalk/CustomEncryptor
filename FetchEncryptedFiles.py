@@ -2,6 +2,7 @@
 
 import pickle
 import zipfile
+import os
 
 class FetchEncryptedFiles:
 
@@ -32,6 +33,6 @@ class FetchEncryptedFiles:
     
 #   This function retrieves the password necessary to open the locked zipfile
     def fetchKey(self, key_name):
-        key = pickle.load(open(key_name, 'rb'))
+        key = pickle.load(self.current_folder_location + '\\' + open(key_name, 'rb'))
         return(key)
 
