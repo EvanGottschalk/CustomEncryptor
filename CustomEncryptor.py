@@ -19,12 +19,18 @@
 import pickle
 import random
 
+# FetchEncryptedFiles is a simple program for retrieving encrypted files on a flash drive or other removable storage
+# SortDictionary is a simple program for sorting dictionaries
 try:
     from FetchEncryptedFiles import FetchEncryptedFiles
     from SortDictionary import SortDictionary
 except:
     from CustomEncryptor.FetchEncryptedFiles import FetchEncryptedFiles
     from CustomEncryptor.SortDictionary import SortDictionary
+
+def main():
+    CE = CustomEncryptor()
+    CE.main_loop()
 
 class CustomEncryptor:
     def __init__(self):
@@ -35,6 +41,31 @@ class CustomEncryptor:
     # encryption_length determines the maximum number of characters that can be encrypted
     # encryption_length determines the length that every encrypted piece of data will be
         self.encryption_length = 100
+
+# main_loop allows the user to choose which functions they would like to execute
+    def main_loop(self):
+        print('- - - - Welcome to the CustomEncryptor! - - - -')
+        selection = False
+        while not(selection):
+            selection = str(input('\nWhat would you like to do?\n(1) : Assemble an existing cipher\n(2) : Generate a new cipher\n(3) : Encrypt data\n(4) : Decrypt data\n(5) : Quit\n\nSelection : '))
+            if selection.lower() == 'assemble' or selection == '1':
+                self.assembleCipher()
+            elif selection.lower() == 'generate' or selection == '2':
+                self.generateCipher()
+            elif selection.lower() == 'encrypt' or selection == '3':
+                self.encrypt()
+            elif selection.lower() == 'decrypt' or selection == '4':
+                self.decrypt()
+            elif selection.lower() == 'quit' or selection == '5':
+                selection = 'quit'
+                print('\nOK! Quitting...')
+            else:
+                selection = False
+                print('That input was invalid! Please enter "1", "2", "3", "4", or "5".')
+            if selection == 'quit':
+                selection = True
+            else:
+                selection = False
 
 # This function reassembles the cipher used for encrypting and decrypting from the various Cipher Portion (CP) files
     def assembleCipher(self):
@@ -120,8 +151,12 @@ class CustomEncryptor:
             self.cipher = SD.sortDictByKey(self.cipher)
             del SD
     # Creates an inverted self.cipher dict with the keys and values switched; this is used in the decrypt() function
-        self.cipher_inverse = {value: key for key, value in self.cipher.items()}
+        self.cipher_inverse = {value: key for key, value in self.cipher.items()}        
         print('OK! Your cipher has been assembled.')
+        for key in self.cipher:
+            print(key + ' -> ' + self.cipher[key])
+    # byte_length is updated to be equal to the byte_length of the assembled cipher
+        self.byte_length = len(self.cipher[key])
              
 # This function is for quickly opening files in the case that encrypt() or decrypt() is sent a file location rather than data for encryption
     def fetchData(self, location):
@@ -133,7 +168,11 @@ class CustomEncryptor:
         return(data)
             
 #   This function encrypts data using self.cipher
-    def encrypt(self, file_info):
+    def encrypt(self, *args):
+        if len(args) == 0:
+            file_info = str(input('What string or file name would you like to encrypt?\n\nInput: '))
+        elif len(args) == 1:
+            data = args[0]
         try:
             data = self.fetchData(file_info)
         except:
@@ -155,34 +194,61 @@ class CustomEncryptor:
                 while len(line_output) < self.encryption_length * self.byte_length:
                     line_output += random.choice(list(self.cipher_inverse))
                 output.append(line_output)
-        return(output)
+        if len(args) == 0:
+            print('Output:\n', output)
+        elif len(args) == 1:
+            return(output)
 
 #   This function decrypts data using self.cipher_inverse
-    def decrypt(self, file_info):
+    def decrypt(self, *args):
+        if len(args) == 0:
+            file_info = str(input('What string or file name would you like to encrypt?\n\nInput: '))
+        elif len(args) == 1:
+            data = args[0]
         try:
             data = self.fetchData(file_info)
         except:
             data = file_info
-        if type(data) == str:
-            output = ''
-            byte = ''
-            for char in data:
-                byte += char
-                if len(byte) == self.byte_length:
-                    output += self.cipher_inverse[byte]
+        quit_decrypt = False
+        while not(quit_decrypt):
+            try:
+                if type(data) == str:
+                    output = ''
                     byte = ''
-        else:
-            output = []
-            for line in data:
-                line_output = ''
-                byte = ''
-                for char in line:
-                    byte += char
-                    if len(byte) == self.byte_length:
-                        line_output += self.cipher_inverse[char]
+                    for char in data:
+                        byte += char
+                        if len(byte) == self.byte_length:
+                            output += self.cipher_inverse[byte]
+                            byte = ''
+                else:
+                    output = []
+                    for line in data:
+                        line_output = ''
                         byte = ''
-                output.append(line_output)
-        return(output)
+                        for char in line:
+                            byte += char
+                            if len(byte) == self.byte_length:
+                                line_output += self.cipher_inverse[char]
+                                byte = ''
+                        output.append(line_output)
+                quit_decrypt = True
+            except:
+                print('ERROR! Decryption failed. This may be because the current byte_length is not equal to the byte_length used to encrypt.')
+                print('\nThe current byte_length is ' + str(self.byte_length))
+                print('\nYou may enter the correct byte_length (a positive integer) to try again, or enter "0" to quit.')
+                byte_length_input = input('\n(x) : Set byte_length to new value x\n(0) : Quit\n\nInput : ')
+                if byte_length_input == '0' or byte_length_input.lower() == 'quit':
+                    print('\nOK! Quitting decryption...')
+                    quit_decrypt = True
+                    output = ''
+                else:
+                    self.byte_length = byte_length_input
+                    print('\nOK! byte_length set to ' + str(byte_length_input))
+                    print('\nCustomEncryptor will attempt decryption again.')
+        if len(args) == 0 and output != '':
+            print('Output:\n', output)
+        elif len(args) == 1:
+            return(output)
 
 #   This function is for generating a new cipher
 #   Cipher generation can be done manually, allowing you to choose what each character is assigned to
@@ -194,8 +260,6 @@ class CustomEncryptor:
                         'A': '', 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', \
                         'N': '', 'O': '', 'P': '', 'Q': '', 'R': '', 'S': '', 'T': '', 'U': '', 'V': '', 'W': '', 'X': '', 'Y': '', 'Z': '', \
                         '-': '', '.': '', ',': '', ' ': '', '!': '', '?': '', '/': '', '@': '', '^': '', '*': '', '(': '', ')': '', '_': ''}
-        
-   
         print('Welcome to the Cipher Generator! Please answer the following questions.\n')
         self.byte_length = False
     # This while loop allows users to choose the number of digits each encrypted character is after encryption
@@ -262,6 +326,8 @@ class CustomEncryptor:
                 new_cipher[char] = new_value
                 new_cipher_inverse[new_value] = char
                 print(char + ' -> ' + new_value)
+        self.cipher = new_cipher
+        self.cipher_inverse = new_cipher_inverse
         print('\nOK! Your cipher has been created. There are just a few more questions for you to answer.\n')
     # This while loop allows the user to choose into how many files their cipher will be broken up
         number_of_files = False
@@ -334,20 +400,18 @@ class CustomEncryptor:
                 not_assigned = character_list
                 for file_count in range(number_of_files):
                     new_CP = {}
-                    if file_count == number_of_files:
+                    if file_count + 1 == number_of_files:
                         new_CP_size = len(not_assigned)
                     else:
                         new_CP_size = random.randint(minimum_CP_size, min(maximum_CP_size, (len(not_assigned)) - ((number_of_files - file_count) * minimum_CP_size)))
                         if len(not_assigned) - new_CP_size > maximum_CP_size:
                             new_CP_size += ((len(not_assigned) - new_CP_size) - maximum_CP_size)
                     for char_count in range(new_CP_size):
-                        if len(not_assigned) == 1:
-                            new_char = new_cipher[not_assigned[0]]
-                        else:
-                            new_char = random.choice(not_assigned)
+                        new_char = random.choice(not_assigned)
                         new_CP[new_char] = new_cipher[new_char]
                         assigned_already.append(new_char)
                         not_assigned.remove(new_char)
+                        print(not_assigned)
                     new_CP_file_name = 'CP_' + str(file_count) + '.pickle'
                     CP_file_name_list.append(new_CP_file_name)
                     pickle.dump(new_CP, open(new_CP_file_name, 'wb'))
@@ -374,5 +438,7 @@ class CustomEncryptor:
                 CP_location_file.close()
             else:
                 print('\nOK! Your Cipher Portion locations will not be saved.')
-                
         
+if __name__ == "__main__":
+    # execute only if run as a script
+    main()
