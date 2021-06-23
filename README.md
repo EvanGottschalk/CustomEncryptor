@@ -40,11 +40,21 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+# CustomEncryptor.py
+
 `CustomEncryptor` is a cryptography program used to encrypt data by converting it to seemingly random numbers. This is done via a custom cipher: users get to choose the way each character is mapped, thus guaranteeing a unique means of encryption and decryption. Alternatively, `CustomEncryptor` can also be used to generate a cipher on its own using random numbers, which saves users the effort of assigning characters one at a time.
 
 The cipher can then be broken up into multiple files, which increases its efficacy. By using `FetchEncryptedFiles.py`, users can save parts of their cipher in an encrypted zip folder and access them when needed. This is particularly useful when paired with removable storage. By saving a portion of one's cipher in an encrypted zip folder on a flash drive or other removable device, one can essentially use that removable device as a hardware key.
 
 The ultimate goal is to protect users' data by allowing them to avoid saving their sensitive data in files. Instead, users can save encrypted versions of the data, and have the actual data itself nowhere on their device. This means that an adversary would need to obtain all of a user's cipher portions in addition to an encrypted file to be able to read it. If the user utilizes locked zip folders and removable storage, an adversary's job gets even harder. In that case, an adversary would also need the removable storage device, as well as the password to the zip folder.
+
+# FetchEncryptedFiles.py
+
+`FetchEncryptedFiles` is a simple program for retrieving encrypted files on a flash drive or other removable storage. It can be used with `CustomEncryptor` to retrieve important files in an encrypted zip folder that's being stored on removable storage.
+
+# SortDictionary.py
+
+`SortDictionary` is a simple program for sorting dictionaries. It sorts their keys alphabetically, then numerically, and then appends other symbols to the end. It can be used with `CustomEncryptor` to make ciphers more easily read and checked, but it isn't required.
 
 
 
