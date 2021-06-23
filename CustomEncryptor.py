@@ -19,8 +19,12 @@
 import pickle
 import random
 
-from FetchEncryptedFiles import FetchEncryptedFiles
-from SortDictionary import SortDictionary
+try:
+    from FetchEncryptedFiles import FetchEncryptedFiles
+    from SortDictionary import SortDictionary
+except:
+    from CustomEncryptor.FetchEncryptedFiles import FetchEncryptedFiles
+    from CustomEncryptor.SortDictionary import SortDictionary
 
 class CustomEncryptor:
     def __init__(self):
@@ -82,14 +86,17 @@ class CustomEncryptor:
                 try:
                     raw_file_data_dict = open(location, 'r')
                 except:
-                    #try:
-                        FEF = FetchEncryptedFiles()
+                    try:
+                        try:
+                            FEF = FetchEncryptedFiles()
+                        except:
+                            FEF = FetchEncryptedFiles()
                         raw_file_data_dict = FEF.fetchFile({'File Name': location})
                         if type(raw_file_data_dict) == bytes:
                             raw_file_data_dict = str(raw_file_data_dict).split("'")[1].split('\\r\\n')
                         del FEF
-                    #except:
-                    #    print('ERROR! Failed to locate file at ' + location)
+                    except:
+                        print('ERROR! Failed to locate file at ' + location)
                 file_data_dict = {}
                 line_count = 0
                 last_line = False
@@ -106,7 +113,10 @@ class CustomEncryptor:
                     self.cipher[str(char)] = str(file_data_dict[char])
     # Sorts the self.cipher dict for easier reading. This is optional and purely for double-checking purposes
         if self.sort:
-            SD = SortDictionary()
+            try:
+                SD = SortDictionary()
+            except:
+                SD = SortDictionary
             self.cipher = SD.sortDictByKey(self.cipher)
             del SD
     # Creates an inverted self.cipher dict with the keys and values switched; this is used in the decrypt() function
